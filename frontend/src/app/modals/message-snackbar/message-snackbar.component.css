@@ -1,0 +1,12 @@
+.error-heading {
+  color: #34394C;
+  font-size: 18px;
+}
+
+.close-button {
+  float: right;
+  top: -18px;
+  right: -20px;
+  cursor: pointer;
+  color: #34394C;
+}

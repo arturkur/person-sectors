@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="2022-04-30_final" author="arturkur55@gmail.com">
+
+        <sql endDelimiter=";">
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+
+        <createTable tableName="sector">
+            <column name="id" type="uuid" defaultValueComputed="uuid_generate_v4()">
+                <constraints primaryKey="true" primaryKeyName="pk_sector" unique="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="uuid">
+                <constraints nullable="true" foreignKeyName="fk_sector_parent"
+                             references="sector(id)"/>
+            </column>
+        </createTable>
+        
+        <addUniqueConstraint tableName="sector" columnNames="name, parent_id"/>
+
+        <createTable tableName="person">
+            <column name="id" type="uuid" defaultValueComputed="uuid_generate_v4()">
+                <constraints primaryKey="true" primaryKeyName="pk_person" unique="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="terms_accepted" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="person_sector">
+            <column name="person_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_person"
+                             references="person(id)"/>
+            </column>
+            <column name="sector_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="fk_sector"
+                             references="sector(id)"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint tableName="person_sector" columnNames="person_id, sector_id"/>
+    </changeSet>
+
+</databaseChangeLog>

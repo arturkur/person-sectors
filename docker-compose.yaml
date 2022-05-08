@@ -1,0 +1,43 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:14.2
+    container_name: person-sectors-db
+    ports:
+      - 15432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=helmes
+      - POSTGRES_USER=helmes
+      - POSTGRES_DB=person-sectors
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "person-sectors", "-U", "helmes" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+  backend:
+    build: ./backend/
+    container_name: person-sectors-java
+    ports: 
+      - 28080:8080
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    links:
+      - postgres
+  
+  frontend:
+    build: ./frontend/
+    container_name: person-sectors-angular
+    ports:
+      - 34200:80
+    links:
+      - backend
+      
+volumes:
+  postgres-data:

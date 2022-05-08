@@ -1,0 +1,41 @@
+.sectors-form {
+  min-width: 150px;
+  max-width: 400px;
+  width: 100%
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-checkbox {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.tree-invisible {
+  display: none;
+}
+
+.sector-tree ul,
+.sector-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+/*
+ * This padding sets alignment of the nested nodes.
+ */
+.sector-tree .mat-nested-tree-node div[role=group] {
+  padding-left: 40px;
+}
+
+/*
+ * Padding for leaf nodes.
+ * Leaf nodes need to have padding so as to align with other non-leaf nodes
+ * under the same parent.
+ */
+.sector-tree div[role=group] > .mat-tree-node {
+  padding-left: 40px;
+}

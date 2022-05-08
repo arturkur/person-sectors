@@ -1,0 +1,24 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container {
+  padding: 7%;
+}
+
+.snackbar-danger {
+  background: #FFF2F1;
+  border: 1px solid #D73E3E;
+  border-radius: 5px;
+}
+
+.snackbar-success {
+  background: #8BE78E;
+  border: 1px solid #548E56;
+  border-radius: 5px;
+}
+
+.mat-snack-bar-container.snackbar-danger {
+  min-width: 500px;
+}
